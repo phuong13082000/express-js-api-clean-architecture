@@ -1,5 +1,6 @@
 export default class Order {
     constructor(
+        _id,
         userId,
         orderId,
         productId,
@@ -11,6 +12,7 @@ export default class Order {
         totalAmount,
         invoice_receipt,
     ) {
+        this._id = _id;
         this.userId = userId;
         this.orderId = orderId;
         this.productId = productId;

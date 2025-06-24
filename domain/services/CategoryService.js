@@ -1,6 +1,5 @@
 export default class CategoryService {
-    async getCategoryById(id) {}
-    async getCategoryByUser(userId) {}
+    async getCategories() {}
     async createCategory(data) {}
     async updateCategory(id, data) {}
     async deleteCategory(id) {}

@@ -1,12 +1,12 @@
 import express from "express";
 import validateRequest from "../../middleware/validateRequest.js";
-import userController from "../controllers/userController.js";
+import userController from "../controllers/user.controller.js";
 import {createUserDTO} from "../../dto/createUserDTO.js";
 import {loginUserDTO} from "../../dto/loginUserDTO.js";
 import auth from "../../middleware/auth.js";
 import {uploadMiddlewareImage} from "../../utils/uploadImageLocal.js";
 
-const userRoute = (userUseCase) => {
+const userRouter = (userUseCase) => {
     const router = express.Router();
     const controller = userController(userUseCase);
 
@@ -25,4 +25,4 @@ const userRoute = (userUseCase) => {
     return router;
 };
 
-export default userRoute;
+export default userRouter;

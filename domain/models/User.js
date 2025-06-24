@@ -1,5 +1,6 @@
 export default class User {
     constructor(
+        _id,
         name,
         email,
         password,
@@ -16,6 +17,7 @@ export default class User {
         forgot_password_expiry,
         role,
     ) {
+        this._id = _id;
         this.name = name;
         this.email = email;
         this.password = password;

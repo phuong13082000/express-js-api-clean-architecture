@@ -1,8 +1,8 @@
 import express from "express";
 import auth from "../../middleware/auth.js";
-import addressController from "../controllers/addressController.js";
+import addressController from "../controllers/address.controller.js";
 
-const addressRoute = (addressUseCase, userUseCase) => {
+const addressRouter = (addressUseCase, userUseCase) => {
     const router = express.Router();
     const controller = addressController(addressUseCase, userUseCase);
 
@@ -14,4 +14,4 @@ const addressRoute = (addressUseCase, userUseCase) => {
     return router;
 };
 
-export default addressRoute;
+export default addressRouter;

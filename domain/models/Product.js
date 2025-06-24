@@ -1,5 +1,6 @@
 export default class Product {
     constructor(
+        _id,
         title,
         slug,
         image,
@@ -13,6 +14,7 @@ export default class Product {
         more_details,
         publish,
     ) {
+        this._id = _id;
         this.title = title;
         this.slug = slug;
         this.image = image;

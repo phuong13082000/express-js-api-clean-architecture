@@ -5,5 +5,5 @@ gen
 
 .env
 node_modules
-public/images/*
 yarn.lock
+public/images/*

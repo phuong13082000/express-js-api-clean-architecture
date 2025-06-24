@@ -1,7 +1,7 @@
 import express from "express";
 import validateRequest from "../../middleware/validateRequest.js";
 import {createProductDTO} from "../../dto/createProductDTO.js";
-import productController from "../controllers/productController.js";
+import productController from "../controllers/product.controller.js";
 
 const productRouter = (productUseCase) => {
     const router = express.Router();

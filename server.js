@@ -11,15 +11,18 @@ import connectDB from "./config/db.js";
 import ProductRepositoryMongo from "./infrastructure/repositories/ProductRepositoryMongo.js";
 import UserRepositoryMongo from "./infrastructure/repositories/UserRepositoryMongo.js";
 import AddressRepositoryMongo from "./infrastructure/repositories/AddressRepositoryMongo.js";
+import CategoryRepositoryMongo from "./infrastructure/repositories/CategoryRepositoryMongo.js";
 
 import UserUseCase from "./usecases/userUseCase.js";
 import ProductUseCase from "./usecases/productUseCase.js";
 import AddressUseCase from "./usecases/addressUseCase.js";
+import CategoryUseCase from "./usecases/categoryUseCase.js";
 
-import productRouter from "./interfaces/routes/productRoute.js";
-import imageRouter from "./interfaces/routes/imageRoute.js";
-import userRoute from "./interfaces/routes/userRoute.js";
-import addressRoute from "./interfaces/routes/addressRoute.js";
+import productRouter from "./interfaces/routes/product.route.js";
+import userRouter from "./interfaces/routes/user.route.js";
+import addressRouter from "./interfaces/routes/address.route.js";
+import uploadRouter from "./interfaces/routes/upload.route.js";
+import categoryRoute from "./interfaces/routes/category.route.js";
 
 config();
 
@@ -33,7 +36,7 @@ const app = express();
 //     origin: process.env.FRONTEND_URL
 // }))
 app.use(express.json()) //limit: '10kb' (json)
-app.use(express.urlencoded({ extended: true })); //(form data)
+app.use(express.urlencoded({extended: true})); //(form data)
 app.use(cookieParser())
 app.use(morgan('dev')) //combined > common > dev > short
 app.use(helmet({
@@ -46,16 +49,19 @@ app.use(helmet({
 const productRepository = new ProductRepositoryMongo();
 const userRepository = new UserRepositoryMongo();
 const addressRepository = new AddressRepositoryMongo();
+const categoryRepository = new CategoryRepositoryMongo();
 
 const productUseCase = new ProductUseCase(productRepository);
 const userUseCase = new UserUseCase(userRepository);
 const addressUseCase = new AddressUseCase(addressRepository);
+const categoryUseCase = new CategoryUseCase(categoryRepository);
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/api/v1/file", imageRouter())
+app.use("/api/v1/file", uploadRouter())
 app.use("/api/v1/products", productRouter(productUseCase));
-app.use("/api/v1/user", userRoute(userUseCase));
-app.use("/api/v1/address", addressRoute(addressUseCase, userUseCase));
+app.use("/api/v1/user", userRouter(userUseCase));
+app.use("/api/v1/address", addressRouter(addressUseCase, userUseCase));
+app.use("/api/v1/category", categoryRoute(categoryUseCase));
 
 connectDB().then(() => {
     app.listen(Port, () => {

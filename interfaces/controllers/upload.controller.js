@@ -1,6 +1,6 @@
 import {saveImage} from "../../utils/uploadImageLocal.js";
 
-const imageController = () => ({
+const uploadController = () => ({
     upload: async (req, res) => {
         try {
             const file = req.file;
@@ -22,4 +22,4 @@ const imageController = () => ({
     }
 })
 
-export default imageController;
+export default uploadController;

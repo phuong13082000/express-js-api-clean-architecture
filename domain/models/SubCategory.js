@@ -1,5 +1,6 @@
 export default class SubCategory {
-    constructor(title, slug, image, category) {
+    constructor(_id, title, slug, image, category) {
+        this._id = _id;
         this.title = title;
         this.slug = slug;
         this.image = image;

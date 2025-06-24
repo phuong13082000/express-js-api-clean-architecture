@@ -1,5 +1,6 @@
 export default class Category {
-    constructor(title, slug, image) {
+    constructor(_id, title, slug, image) {
+        this._id = _id;
         this.title = title;
         this.slug = slug;
         this.image = image;
