@@ -1,4 +1,4 @@
-const categoryController = (categoryUseCase) => ({
+const categoryController = (categoryUseCase, subCategoryUseCase) => ({
     get: async (req, res) => {
         try {
             const data = categoryUseCase.getAll();
@@ -14,13 +14,13 @@ const categoryController = (categoryUseCase) => ({
     },
     create: async (req, res) => {
         try {
-            const {title, image} = req.body
+            const {title, slug, image} = req.body
 
             if (!title || !image) {
-                return res.status(400).json({status: "success", message: "Enter required fields"})
+                return res.status(400).json({status: "error", message: "Enter required fields"})
             }
 
-            await categoryUseCase.create({title, image})
+            await categoryUseCase.create({title, slug, image})
 
             return res.status(201).json({
                 status: "success",
@@ -32,9 +32,9 @@ const categoryController = (categoryUseCase) => ({
     },
     update: async (req, res) => {
         try {
-            const {_id, title, image} = req.body
+            const {_id, title, slug, image} = req.body
 
-            await categoryUseCase.update({_id: _id}, {title, image})
+            await categoryUseCase.update({_id: _id}, {title, slug, image})
 
             return res.status(201).json({
                 status: "success",
@@ -48,24 +48,18 @@ const categoryController = (categoryUseCase) => ({
         try {
             const {_id} = req.body
 
-            // const checkSubCategory = await SubCategoryModel.find({
-            //     category: {
-            //         "$in": [_id]
-            //     }
-            // }).countDocuments()
-            //
+            const checkSubCategory = await subCategoryUseCase.countSubCategoriesByCategoryId(_id);
+
             // const checkProduct = await ProductModel.find({
             //     category: {
             //         "$in": [_id]
             //     }
             // }).countDocuments()
-            //
+
             // if (checkSubCategory > 0 || checkProduct > 0) {
-            //     return response.status(400).json({
-            //         success: false,
-            //         message: "Category is already use can't delete",
-            //     })
-            // }
+            if (checkSubCategory > 0) {
+                return res.status(400).json({status: "error", message: "Category is already use can't delete"})
+            }
 
             await categoryUseCase.delete({_id: _id})
 

@@ -1,7 +1,7 @@
 import UserService from "../../domain/services/UserService.js";
 import UserModel from "../db/mongodb/schemas/UserSchema.js";
 
-export default class UserRepositoryMongo extends UserService {
+export default class UserRepoMongo extends UserService {
     async getUserById(id, select) {
         return UserModel.findById(id).select(select);
     }

@@ -1,7 +1,7 @@
 import ProductService from "../../domain/services/ProductService.js";
 import ProductModel from "../db/mongodb/schemas/ProductSchema.js";
 
-export default class ProductRepositoryMongo extends ProductService {
+export default class ProductRepoMongo extends ProductService {
     async getAllProducts(query, skip, limit) {
         return ProductModel.find(query)
             .sort({createdAt: -1})

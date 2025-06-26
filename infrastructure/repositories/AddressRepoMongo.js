@@ -1,7 +1,7 @@
 import AddressService from "../../domain/services/AddressService.js";
 import AddressModel from "../db/mongodb/schemas/AddressSchema.js";
 
-export default class AddressRepositoryMongo extends AddressService {
+export default class AddressRepoMongo extends AddressService {
     async getAddressByUserId(userId) {
         return AddressModel.find({
             userId: userId,
